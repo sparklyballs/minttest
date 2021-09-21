@@ -44,11 +44,14 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # build package
 RUN \
 	if [ -z ${RELEASE+x} ]; then \
-	RELEASE=$(curl -u "${SECRETUSER}:${SECRETPASS}" -sX GET "https://api.github.com/repos/MintNetwork/mint-blockchain/tags" \
-	| jq -r ".[0].name") ; \
+	RELEASE=$(curl -u "${SECRETUSER}:${SECRETPASS}" -sX GET "https://api.github.com/repos/MintNetwork/mint-blockchain/commits/main" \
+	| jq -r ".sha"); \
+	RELEASE="${RELEASE:0:7}"; \
 	fi \
-	&& git clone -b "${RELEASE}" --recurse-submodules https://github.com/MintNetwork/mint-blockchain.git \
+	&& git clone https://github.com/MintNetwork/mint-blockchain.git \
 		/mint-blockchain \		
+	&& git checkout "${RELEASE}" \
+	&& git submodule update --init \
 	&& sh install.sh \
 # cleanup
 	&& rm -rf \
