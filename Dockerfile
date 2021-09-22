@@ -7,7 +7,6 @@ ARG RELEASE
 
 # environment variables
 ENV \
-	CONFIG_ROOT=/root/.mint/mainnet \
 	farmer_address="null" \
 	farmer="false" \
 	farmer_port="null" \
@@ -67,12 +66,14 @@ RUN \
 	&& git submodule update --init mozilla-ca \
 	&& sh install.sh
 
-# set path
-ENV PATH=/mint-blockchain/venv/bin:$PATH
+# set additional runtime environment variables
+ENV \
+	PATH=/mint-blockchain/venv/bin:$PATH \
+	CONFIG_ROOT=/root/.mint/mainnet
 
 # copy local files
-COPY docker-start.sh /usr/local/bin/
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker-*.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-*.sh
 
 # entrypoint
 ENTRYPOINT ["docker-entrypoint.sh"]
