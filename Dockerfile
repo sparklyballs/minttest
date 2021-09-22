@@ -7,7 +7,7 @@ ARG RELEASE
 
 # environment variables
 ENV \
-	APP_ROOT=/root/.mint/mainnet \
+	CONFIG_ROOT=/root/.mint/mainnet \
 	farmer_address="null" \
 	farmer="false" \
 	farmer_port="null" \

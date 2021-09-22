@@ -16,5 +16,5 @@ else
 fi
 
 # Ensures the log file actually exists, so we can tail successfully
-touch "$APP_ROOT/log/debug.log"
-tail -f "$APP_ROOT/log/debug.log"
+touch "$CONFIG_ROOT/log/debug.log"
+tail -f "$CONFIG_ROOT/log/debug.log"

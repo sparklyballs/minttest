@@ -46,6 +46,6 @@ if [[ -n "${log_level}" ]]; then
   mint configure --log-level "${log_level}"
 fi
 
-sed -i 's/localhost/127.0.0.1/g' "$APP_ROOT/config/config.yaml"
+sed -i 's/localhost/127.0.0.1/g' "$CONFIG_ROOT/config/config.yaml"
 
 exec "$@"
